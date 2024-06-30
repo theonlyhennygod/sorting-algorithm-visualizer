@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
+import { FaGithub } from "react-icons/fa";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -23,9 +23,14 @@ const Navbar = () => {
         <button onClick={toggleDarkMode} className="text-xl mr-4">
           {darkMode ? "🌞" : "🌙"}
         </button>
-        <Link href="https://github.com/your-repo" passHref>
-          <a className="text-black dark:text-white">GitHub</a>
-        </Link>
+        <a
+          href="https://github.com/theonlyhennygod/sorting-algorithm-visualizer"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`text-xl ${darkMode ? "text-white" : "text-black"}`}
+        >
+          <FaGithub />
+        </a>
       </div>
     </nav>
   );

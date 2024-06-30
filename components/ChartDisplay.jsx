@@ -1,21 +1,46 @@
-import { Bar } from 'react-chartjs-2';
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement, // Import BarElement
+  Title,
+  Tooltip,
+  Legend,
+  BarController, // Import BarController
+} from "chart.js";
+
+// Register the components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement, // Register BarElement
+  BarController, // Register BarController
+  Title,
+  Tooltip,
+  Legend
+);
 
 const ChartDisplay = ({ data }) => {
   const chartData = {
-    labels: data.map((_, index) => `Element ${index + 1}`),
+    labels: data.map((_, index) => index),
     datasets: [
       {
-        label: 'Dataset',
-        data,
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
+        label: "Dataset",
+        data: data,
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
       },
     ],
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-10">
+    <div className="w-full max-w-4xl mx-auto mt-6">
       <Bar data={chartData} />
     </div>
   );
