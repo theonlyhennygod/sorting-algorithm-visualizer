@@ -1,67 +1,48 @@
-// pages/index.js
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import AlgorithmSelector from '../components/AlgorithmSelector';
-import SortingChart from '../components/ChartDisplay';
-import BigOChart from '../components/BigOChart';
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { mergeSort, quickSort, getBigO } from '../utils/sortAlgorithms';
+import AlgorithmSelector from '../components/AlgorithmSelector';
+import ChartDisplay from '../components/ChartDisplay';
+import { sortAlgorithms } from '../utils/sortAlgorithms';
+
 
 const Home = () => {
+  const [algorithm, setAlgorithm] = useState('bubbleSort');
   const [data, setData] = useState([]);
-  const [sortedData, setSortedData] = useState([]); // Add this line to declare sortedData state
-  const [bigOData, setBigOData] = useState([]);
-  const [algorithm, setAlgorithm] = useState('');
-
-  useEffect(() => {
-    const initialData = Array.from({ length: 50 }, () => Math.floor(Math.random() * 100));
-    setData(initialData);
-  }, []);
-
-  const handleAlgorithmSelect = (alg) => {
-    setAlgorithm(alg);
-  };
+  const [sortedData, setSortedData] = useState([]);
+  const [bigONotation, setBigONotation] = useState('');
 
   const generateRandomData = () => {
-    const randomData = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
+    const randomData = Array.from({ length: 100 }, () => Math.floor(Math.random() * 100));
     setData(randomData);
     setSortedData([]);
-    setBigOData([bigOData]);
+    setBigONotation('');
   };
 
   const handleSort = () => {
-    if (algorithm) {
-      let sortedData = [];
-      let bigO = '';
-      switch (algorithm) {
-        case 'mergeSort':
-          sortedData = mergeSort(data);
-          bigO = getBigO(algorithm);
-          break;
-        case 'quickSort':
-          sortedData = quickSort(data);
-          bigO = getBigO(algorithm);
-          break;
-        default:
-          console.error('Unsupported algorithm selected');
-          return;
-      }
-      setSortedData(sortedData);
-      setBigOData(bigO);
+    console.log('Current algorithm:', algorithm); 
+    console.log('Available algorithms:', Object.keys(sortAlgorithms));
+  
+    const sortFunction = sortAlgorithms[algorithm];
+  
+    if (typeof sortFunction !== 'function') {
+      console.error(`Algorithm '${algorithm}' is not a valid function.`);
+      return; 
     }
+  
+    const { sortedArray, bigO } = sortFunction(data);
+    setSortedData(sortedArray);
+    setBigONotation(bigO);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-800 text-black dark:text-white">
       <Navbar />
-      <div className="flex-1 flex flex-col items-center justify-center p-4 mb-16">
-        <h1 className="text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100">
-          Sorting Algorithm Visualizer
-        </h1>
-        <AlgorithmSelector onSelect={handleAlgorithmSelect} />
-        <div className="mt-10">
+      <div className="container mx-auto p-4 mt-8">
+        <h1 className="text-4xl font-bold text-center my-6">Sorting Algorithm Visualizer</h1>
+        <AlgorithmSelector onSelect={setAlgorithm} />
+        <div className="text-center p-4">
           <button onClick={generateRandomData} className="px-4 py-2 bg-blue-500 text-white rounded mr-4">
             Generate Data
           </button>
@@ -69,10 +50,9 @@ const Home = () => {
             Sort Data
           </button>
         </div>
-        <SortingChart data={data} />
-        <BigOChart bigOData={bigOData} />
+        <ChartDisplay data={sortedData.length ? sortedData : data} />
+        {bigONotation && <p className="text-xl text-black dark:text-white text-center mt-4">Big O Notation: {bigONotation}</p>}
       </div>
-      <Footer />
     </div>
   );
 };

@@ -16,7 +16,7 @@ const AlgorithmSelector = ({ onSelect }) => {
         <select
             value={algorithm}
             onChange={handleSelect}
-            className="p-2 border rounded text-black w-40" // Added "w-48" class for width
+            className="p-2 border rounded text-black w-40"
         >
             <option value="bubbleSort">Bubble Sort</option>
             <option value="quickSort">Quick Sort</option>
@@ -24,10 +24,6 @@ const AlgorithmSelector = ({ onSelect }) => {
             <option value="insertionSort">Insertion Sort</option>
             <option value="selectionSort">Selection Sort</option>
             <option value="heapSort">Heap Sort</option>
-            <option value="radixSort">Radix Sort</option>
-            <option value="bucketSort">Bucket Sort</option>
-            <option value="shellSort">Shell Sort</option>
-            <option value="countingSort">Counting Sort</option>
         </select>
     </div>
   );
