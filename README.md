@@ -2,6 +2,10 @@
 
 This project is a sorting algorithm visualizer that allows you to see how different sorting algorithms work in real-time. It provides a visual representation of the sorting process, making it easier to understand and compare the efficiency of different algorithms.
 
+## DEMO 
+
+https://github.com/theonlyhennygod/sorting-algorithm-visualizer/assets/144828210/a2031e51-4bd6-4192-91dd-ad67a19fbeac
+
 ## Features
 
 - Real-time visualization of sorting algorithms
