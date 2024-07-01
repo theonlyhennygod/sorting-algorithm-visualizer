@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -30,6 +30,14 @@ const Navbar = () => {
           className={`text-xl ${darkMode ? "text-white" : "text-black"}`}
         >
           <FaGithub />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/argenisdelarosa"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`text-xl ${darkMode ? "text-white" : "text-blue-500"} ml-4`}
+        >
+          <FaLinkedin />
         </a>
       </div>
     </nav>

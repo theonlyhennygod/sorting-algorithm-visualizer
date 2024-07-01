@@ -25,6 +25,7 @@ ChartJS.register(
   Legend
 );
 
+
 const ChartDisplay = ({ data }) => {
   const chartData = {
     labels: data.map((_, index) => `Element ${index + 1}`),
@@ -32,7 +33,7 @@ const ChartDisplay = ({ data }) => {
       {
         label: "Dataset",
         data,
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        backgroundColor: "rgba(75, 192, 192, 1)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
       },
