@@ -6,6 +6,7 @@ import AlgorithmSelector from '../components/AlgorithmSelector';
 import ChartDisplay from '../components/ChartDisplay';
 import Footer from '../components/Footer';
 import Card from '../components/Card'; // Import the Card component
+import SoundPlayer from '../components/SoundPlayer'; // Import the SoundPlayer component
 import { sortAlgorithms } from '../utils/sortAlgorithms';
 import { DarkModeProvider } from '../components/DarkModeContext';
 
@@ -16,10 +17,11 @@ const Home = () => {
   const [bigONotation, setBigONotation] = useState('');
   const [isSorting, setIsSorting] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
-  const [speed, setSpeed] = useState(50); // Speed in slider value (0 to 100)
+  const [speed, setSpeed] = useState(90); // Speed in slider value (0 to 100)
   const [currentElement, setCurrentElement] = useState(null);
   const stepsRef = useRef([]);
   const stepIndexRef = useRef(0);
+  const soundPlayerRef = useRef(null);
 
   const generateRandomData = () => {
     const randomData = Array.from({ length: 100 }, () => Math.floor(Math.random() * 100));
@@ -55,10 +57,16 @@ const Home = () => {
         setSortedData(stepsRef.current[stepIndexRef.current].array);
         setCurrentElement(stepsRef.current[stepIndexRef.current].currentIndex);
         stepIndexRef.current++;
+        if (soundPlayerRef.current) {
+          soundPlayerRef.current.playMoveSound();
+        }
       } else {
         clearInterval(interval);
         setIsSorting(false);
         setCurrentElement(null);
+        if (soundPlayerRef.current) {
+          soundPlayerRef.current.playFinishSound();
+        }
       }
     }, mapSpeedToInterval(speed)); // Use the mapped speed value
     setIntervalId(interval);
@@ -80,10 +88,16 @@ const Home = () => {
           setSortedData(stepsRef.current[stepIndexRef.current].array);
           setCurrentElement(stepsRef.current[stepIndexRef.current].currentIndex);
           stepIndexRef.current++;
+          if (soundPlayerRef.current) {
+            soundPlayerRef.current.playMoveSound();
+          }
         } else {
           clearInterval(interval);
           setIsSorting(false);
           setCurrentElement(null);
+          if (soundPlayerRef.current) {
+            soundPlayerRef.current.playFinishSound();
+          }
         }
       }, mapSpeedToInterval(newSpeed)); // Use the mapped speed value
       setIntervalId(interval);
@@ -112,16 +126,16 @@ const Home = () => {
 
   return (
     <DarkModeProvider>
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-800 text-black dark:text-white flex flex-col">
+      <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white flex flex-col">
         <Navbar />
         <main className="container mx-auto p-8 mt-8 flex-grow flex flex-col items-center">
-          <h1 className="text-4xl font-bold text-center my-6">Sort that Algo</h1>
+          <h1 className="text-4xl font-bold text-center my-6">Sorting Algorithm Visualizer</h1>
           <AlgorithmSelector onSelect={handleAlgorithmChange} />
           <div className="text-center p-4 mb-6">
-            <button onClick={generateRandomData} className="px-4 py-2 bg-blue-500 text-white rounded mr-4">
+            <button onClick={generateRandomData} className="px-4 py-2 button-neon-green rounded mr-4">
               Generate Data
             </button>
-            <button onClick={isSorting ? handleStop : handleSort} className={`px-4 py-2 ${isSorting ? 'bg-red-500' : 'bg-green-500'} text-white rounded mr-4`}>
+            <button onClick={isSorting ? handleStop : handleSort} className={`px-4 py-2 ${isSorting ? 'button-red' : 'button-neon-green'} rounded mr-4`}>
               {isSorting ? 'Stop' : 'Start'}
             </button>
           </div>
@@ -138,28 +152,29 @@ const Home = () => {
               />
             </div>
           )}
-          <ChartDisplay data={sortedData.length ? sortedData : data} currentElement={currentElement} />
+          <ChartDisplay data={sortedData.length ? sortedData : data} currentElement={currentElement} isSorting={isSorting} />
           {bigONotation && (
             <Card
               frontContent={
                 <div>
-                  <p className="text-xl text-black dark:text-white text-center mt-4 mb-6 underline">Big O Notation: {algorithm}</p>
-                  <p className="text-lg text-black dark:text-white text-center mt-2">Average Case: {complexity.averageCase}</p>
-                  <p className="text-lg text-black dark:text-white text-center mt-2">Best Case: {complexity.bestCase}</p>
-                  <p className="text-lg text-black dark:text-white text-center mt-2">Worst Case: {complexity.worstCase}</p>
-                  <p className="text-lg text-black dark:text-white text-center mt-2">Space Complexity: {complexity.spaceComplexity}</p>
+                  <p className="text-xl text-black dark:text-white text-center font-bold mt-4 mb-6 underline">Big O Notation: {algorithm}</p>
+                  <p className="text-lg text-black dark:text-white text-center font-bold mt-2">Average Case: {complexity.averageCase}</p>
+                  <p className="text-lg text-black dark:text-white text-center font-bold mt-2">Best Case: {complexity.bestCase}</p>
+                  <p className="text-lg text-black dark:text-white text-center font-bold mt-2">Worst Case: {complexity.worstCase}</p>
+                  <p className="text-lg text-black dark:text-white text-center font-bold mt-2">Space Complexity: {complexity.spaceComplexity}</p>
                 </div>
               }
               backContent={
                 <div>
-                  <p className="text-lg text-black dark:text-white text-center mt-2">{description}</p>
-                  <p className="text-lg text-black dark:text-white text-center mt-2">{reason}</p>
+                  <p className="text-lg text-black dark:text-white text-center font-bold mt-2">{description}</p>
+                  <p className="text-lg text-black dark:text-white text-center font-bold mt-2">{reason}</p>
                 </div>
               }
             />
           )}
         </main>
         <Footer className="mt-8" />
+        <SoundPlayer ref={soundPlayerRef} moveSoundFile="/move-sound.mp3" finishSoundFile="/finish-sound.mp3" />
       </div>
     </DarkModeProvider>
   );

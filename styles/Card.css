@@ -9,9 +9,10 @@
   width: 100%;
   height: 300px; /* Increased height */
   text-align: center;
-  transition: transform 0.6s;
+  transition: transform 0.6s, box-shadow 0.3s;
   transform-style: preserve-3d;
   position: relative;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increased shadow */
 }
 
 .card-container.flipped .card {
@@ -28,7 +29,7 @@
   height: 100%;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increased shadow */
 }
 
 .card-front {
@@ -44,11 +45,25 @@
 
 /* Dark mode styles */
 .dark .card-front {
-  background-color: #2d3748; /* Dark gray */
+  background-color: #000000; /* Pitch black */
   color: white;
+  font-weight: bold; /* Bolder text */
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3); /* Increased shadow */
 }
 
 .dark .card-back {
-  background-color: #4a5568; /* Darker gray */
+  background-color: #000000; /* Pitch black */
   color: white;
+  font-weight: bold; /* Bolder text */
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3); /* Increased shadow */
+}
+
+/* Hover effect */
+.card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+}
+
+/* Dark mode hover effect */
+.dark .card:hover {
+  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.4); /* More pronounced shadow with white tint */
 }

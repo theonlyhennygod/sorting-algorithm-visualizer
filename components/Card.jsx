@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import "../styles/Card.css"; // Corrected the import path
+import React, { useState } from 'react';
+import '../styles/Card.css';
 
 const Card = ({ frontContent, backContent }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [flipped, setFlipped] = useState(false);
 
   const handleFlip = () => {
-    setIsFlipped(!isFlipped);
+    setFlipped(!flipped);
   };
 
   return (
-    <div className={`card-container ${isFlipped ? "flipped" : ""}`} onClick={handleFlip}>
+    <div className={`card-container ${flipped ? 'flipped' : ''}`} onClick={handleFlip}>
       <div className="card">
         <div className="card-front">
           {frontContent}
