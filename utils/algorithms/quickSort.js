@@ -1,4 +1,4 @@
-export const quickSort = (array) => {
+export const quickSort = (array, addStep) => {
     const sortedArray = [...array];
 
     const partition = (arr, low, high) => {
@@ -8,9 +8,11 @@ export const quickSort = (array) => {
             if (arr[j] < pivot) {
                 i++;
                 [arr[i], arr[j]] = [arr[j], arr[i]];
+                addStep([...arr], i); // Record the step
             }
         }
         [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+        addStep([...arr], i + 1); // Record the step
         return i + 1;
     };
 

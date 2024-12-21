@@ -1,4 +1,4 @@
-export const selectionSort = (array) => {
+export const selectionSort = (array, addStep) => {
     const sortedArray = [...array];
 
     for (let i = 0; i < sortedArray.length; i++) {
@@ -10,6 +10,7 @@ export const selectionSort = (array) => {
         }
         if (minIndex !== i) {
             [sortedArray[i], sortedArray[minIndex]] = [sortedArray[minIndex], sortedArray[i]];
+            addStep([...sortedArray], i); // Record the step
         }
     }
 

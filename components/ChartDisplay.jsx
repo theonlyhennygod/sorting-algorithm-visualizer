@@ -5,40 +5,43 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  BarElement, // Import BarElement
+  BarElement,
   Title,
   Tooltip,
   Legend,
-  BarController, // Import BarController
+  BarController,
 } from "chart.js";
 
-// Register the components
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  BarElement, // Register BarElement
-  BarController, // Register BarController
+  BarElement,
+  BarController,
   Title,
   Tooltip,
   Legend
 );
 
-
-const ChartDisplay = ({ data }) => {
+const ChartDisplay = ({ data, currentElement }) => {
   const chartData = {
     labels: data.map((_, index) => `Element ${index + 1}`),
     datasets: [
       {
         label: "Dataset",
         data,
-        backgroundColor: "rgba(75, 192, 192, 1)",
-        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: data.map((_, index) =>
+          index === currentElement ? "rgba(255, 9, 0, 1)" : "rgba(75, 192, 192, 1)"
+        ),
+        borderColor: data.map((_, index) =>
+          index === currentElement ? "rgba(255, 9, 0, 1)" : "rgba(75, 192, 192, 1)"
+        ),
         borderWidth: 1,
       },
     ],
   };
+
   const options = {
     scales: {
       x: {
@@ -50,16 +53,16 @@ const ChartDisplay = ({ data }) => {
       y: {
         title: {
           display: true,
-          text: "Operations",
+          text: "Values",
         },
       },
     },
+    animation: {
+      duration: 100, // Adjust the duration as needed
+    },
   };
-  return (
-    <div className="w-full max-w-4xl mx-auto mt-10">
-      <Bar data={chartData} options={options} />
-    </div>
-  );
+
+  return <Bar data={chartData} options={options} />;
 };
 
 export default ChartDisplay;

@@ -1,4 +1,4 @@
-export const heapSort = (array) => {
+export const heapSort = (array, addStep) => {
     const sortedArray = [...array];
 
     const heapify = (arr, length, i) => {
@@ -16,6 +16,7 @@ export const heapSort = (array) => {
 
         if (largest !== i) {
             [arr[i], arr[largest]] = [arr[largest], arr[i]];
+            addStep([...arr], i); // Record the step
             heapify(arr, length, largest);
         }
     };
@@ -36,6 +37,7 @@ export const heapSort = (array) => {
 
         while (length > 0) {
             [arr[0], arr[length - 1]] = [arr[length - 1], arr[0]];
+            addStep([...arr], 0); // Record the step
             length--;
             heapify(arr, length, 0);
         }

@@ -1,7 +1,7 @@
-export const mergeSort = (array) => {
+export const mergeSort = (array, addStep) => {
     const sortedArray = [...array];
 
-    const merge = (left, right) => {
+    const merge = (left, right, startIndex) => {
         let result = [];
         let leftIndex = 0;
         let rightIndex = 0;
@@ -16,10 +16,18 @@ export const mergeSort = (array) => {
             }
         }
 
-        return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+        result = result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+
+        // Update the original array with the merged result
+        for (let i = 0; i < result.length; i++) {
+            sortedArray[startIndex + i] = result[i];
+            addStep([...sortedArray], startIndex + i); // Record the step
+        }
+
+        return result;
     };
 
-    const mergeSortRecursive = (arr) => {
+    const mergeSortRecursive = (arr, startIndex) => {
         if (arr.length <= 1) {
             return arr;
         }
@@ -28,8 +36,15 @@ export const mergeSort = (array) => {
         const left = arr.slice(0, middle);
         const right = arr.slice(middle);
 
-        return merge(mergeSortRecursive(left), mergeSortRecursive(right));
+        const merged = merge(
+            mergeSortRecursive(left, startIndex),
+            mergeSortRecursive(right, startIndex + middle),
+            startIndex
+        );
+
+        return merged;
     };
 
-    return { sortedArray: mergeSortRecursive(sortedArray), bigO: "O(n log n)" };
+    mergeSortRecursive(sortedArray, 0);
+    return { sortedArray, bigO: "O(n log n)" };
 };
