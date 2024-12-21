@@ -11,8 +11,8 @@ const AlgorithmSelector = ({ onSelect }) => {
   };
 
   return (
-    <div className="flex flex-col items-center mt-10">
-        <label className="mb-2 text-black dark:text-white text-xl">Select Sorting Algorithm</label>
+    <div className="flex flex-col items-center mt-10 mb-6">
+        <label className="mb-2 text-black dark:text-white text-xl">Select Algorithm</label>
         <select
             value={algorithm}
             onChange={handleSelect}

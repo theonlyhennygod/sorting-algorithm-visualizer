@@ -1,20 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useDarkMode } from '../components/DarkModeContext';
 
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    if (darkMode) {
-      document.documentElement.classList.remove("dark");
-    } else {
-      document.documentElement.classList.add("dark");
-    }
-  };
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <nav className="flex justify-between items-center p-5 bg-gray-100 dark:bg-gray-800">
