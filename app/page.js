@@ -129,7 +129,7 @@ const Home = () => {
       <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white flex flex-col">
         <Navbar />
         <main className="container mx-auto p-8 mt-8 flex-grow flex flex-col items-center">
-          <h1 className="text-4xl font-bold text-center my-6">Sorting Algorithm Visualizer</h1>
+          <h1 className="text-4xl font-bold text-center my-6">Sort That Algo</h1>
           <AlgorithmSelector onSelect={handleAlgorithmChange} />
           <div className="text-center p-4 mb-6">
             <button onClick={generateRandomData} className="px-4 py-2 button-neon-green rounded mr-4">

@@ -4,6 +4,8 @@ This project is a sorting algorithm visualizer that allows you to see how differ
 
 ## DEMO 
 
+
+
 https://github.com/theonlyhennygod/sorting-algorithm-visualizer/assets/144828210/a2031e51-4bd6-4192-91dd-ad67a19fbeac
 
 ## Features
@@ -29,6 +31,7 @@ https://github.com/theonlyhennygod/sorting-algorithm-visualizer/assets/144828210
 - Insertion Sort
 - Merge Sort
 - Quick Sort
+- Heap Sort
 
 ## Getting Started
 
